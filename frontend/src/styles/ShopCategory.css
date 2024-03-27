@@ -1,0 +1,31 @@
+
+.shop-category {
+    display: flex;
+    flex-direction: column;
+}
+
+.shopcategory-products {
+    display: grid;
+    align-self: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+.shopcategory-loadMore {
+    align-self: center;
+    align-content: center;
+    font-weight: 600;
+    text-align: center;
+    width: 140px;
+    height: 50px;
+    color: #40426e;
+    border: #40426e solid .5px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+
+.shopcategory-loadMore:hover {
+    color: #aaabc9;
+    background-color: #40426e ;
+}

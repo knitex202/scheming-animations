@@ -1,0 +1,32 @@
+.Shop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+    gap: 10px;
+}
+
+
+.shop-item {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+   gap: 10px;
+}
+
+.Shop hr {
+    position: relative;
+    top: -20px;
+    margin-bottom: 50px;
+    width: 200px;
+    height: 6px;
+    border: none;
+    border-radius: 10px;
+    background: #e92a1e ;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    padding: 100px;
+}

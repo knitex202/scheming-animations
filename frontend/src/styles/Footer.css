@@ -1,0 +1,38 @@
+
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 130px;
+    background-color: #060606;
+    color: white;
+}
+
+.footer-left-side {
+    display: flex;
+}
+
+.border-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 283px;
+    height:83px;
+    border: white solid .5px;
+}
+
+.border-box img {
+    margin: 0 5px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.social-icons {
+    position: relative;
+    top: -10px;
+    left: -8px;
+}

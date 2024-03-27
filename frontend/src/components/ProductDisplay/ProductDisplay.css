@@ -1,0 +1,73 @@
+
+
+.ProductDisplay {
+ display: flex;
+ justify-content: space-evenly;
+ margin: 25px 30px;
+}
+
+.productdisplay-img {
+    height: 180px;
+    width: 290px;
+    overflow: hidden;
+}
+
+.productdisplay-img img {
+    object-fit: cover;
+    transition: .2s ease;
+}
+
+.productdisplay-img img:hover {
+    scale: 1.3;
+}
+
+@media screen and (max-width: 768px) {
+    /* On screens that are 768px wide or less, show one column */
+    .ProductDisplay{flex-direction: column;}
+    .productdisplay-img{height: auto; width: 100%; }
+    .productdisplay-img img{object-position: center;}        
+}
+
+
+.productdisplay-buttons-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.productdisplay-buttons-container > button {
+    margin: 10px 0;
+    width: 200px;
+    height: 60px;
+    border: none;
+    border-radius: 10px;
+}
+
+.productdisplay-addtocart-button {
+    font-weight: 600;
+    background-color: #6b63c4;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.productdisplay-addtocart-button:hover {
+    background-color: white;
+    color: #6b63c4;
+}
+
+.productdisplay-buynow-button {
+    background-color: #e92a1e;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.productdisplay-buynow-button:hover {
+    background-color: white;
+    color: #e92a1e;
+}
+
+.productdisplay-privacypolicy {
+    width: 400px;
+}

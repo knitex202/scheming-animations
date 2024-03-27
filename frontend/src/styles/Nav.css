@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+nav {
+    display: flex;
+    height: 80px;
+    padding: 5px 25px;
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+}
+
+.left-container {
+
+}
+
+.left-container p {
+    font-family: "Acme";
+    font-size: 1.4rem;
+}
+
+.left-container span {
+    color: #e92a1e;
+}
+
+.right-container {
+    display: flex;
+    align-items: center;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+
+.cart-container {
+    position: relative;
+    top: -10px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    width: 110px;
+}
+
+.shoppingBag {
+position: relative;
+top: 10px;
+
+}
+
+
+
+.cart-counter {
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center; 
+    position: relative;
+    top: 5px;
+    right: 40px;
+    align-items: center; 
+    font-size: 12px;
+    font-weight: 600;
+    color: white;
+    background-color: #e92a1e;
+    border-radius: 50%; 
+}
+
+
+
+.shop-menu {
+    position: relative;
+    padding: 5px;
+    top: 80px;
+    right:-100px;
+    width: 250px;
+    align-items: center;
+    background-color: white;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.shop-menu a {
+    color: #1a1b34;
+}
+
+.shop-menu ul {
+    display: block;
+}
+
+.shop-menu li {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #1a1b34;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.shop-menu li:hover {
+    color: #e92a1e;
+}
+
+.shop-menu hr{
+    position: relative;
+    right: 60px;
+    top: -5px;
+    border: none;
+    width: 50%;
+    height: 3px;
+    background: #1a1b34;
+}
