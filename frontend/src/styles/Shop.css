@@ -30,3 +30,38 @@ article {
     width: 500px;
     padding: 100px;
 }
+
+@media(max-width: 1280px) {
+    .shop-item{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media(max-width: 1000px){
+    article, .shop-item{
+        max-width: 300px;
+        width: 90%;
+        box-sizing: border-box;
+        padding: 40px;
+    }
+    
+    .shop-item{
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+        align-items: start;
+        flex-wrap: wrap;
+    }
+
+    .product-img img{
+        width: 100%;
+    }
+
+    h1{
+        font-size: 1.5em;
+    }
+
+    .price span{
+        display: inline-block;
+        margin-left: 10px;
+    }
+}

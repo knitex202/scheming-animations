@@ -2,6 +2,7 @@
 .shop-category {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .shopcategory-products {
@@ -28,4 +29,16 @@
 .shopcategory-loadMore:hover {
     color: #aaabc9;
     background-color: #40426e ;
+}
+
+@media(max-width:1280px) {
+    .shopcategory-products{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media(max-width:1000px) {
+    .shopcategory-products{
+        grid-template-columns: 1fr 1fr;
+    }
 }

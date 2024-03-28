@@ -19,6 +19,8 @@
   font-weight: 600;
 }
 
+
+
 .cartItems-format-image-container {
   width: 290px;
   height: 180px;
@@ -39,6 +41,13 @@
 
 .cartIcon-product-icon {
   height: 62px;
+}
+
+.cartItems-button-container {
+  width: 145px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
 }
 
 .cartItems-button-addRemove {
@@ -148,4 +157,65 @@
 .cartItems-promobox button:hover {
   background: white;
   color: #6b63c4;
+}
+
+@media(max-width:1280px) {
+   .cartItems {
+      margin: 100px 100px;
+    }
+
+   .cartItems-format-image-container {
+    width: 145px;
+    height: 90px;
+    overflow: hidden;
+   }
+
+   .cartItems-format-image-container img {
+    object-fit: cover;
+    width: 145px;
+    height: 100%;
+    transition: 0.2s ease;
+   }
+
+   .title-section {
+    visibility: hidden;
+   }
+
+   .cartItems-quantity {
+    width: 40px;
+    height: 40px;
+    border-radius: 0px;
+   }
+
+   .cartItems-button-container {
+    margin-top: 25px;
+    width: 110px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+   }
+
+   .cartItem-format-main {
+    display: grid;
+    grid-template-columns: .5fr 1fr .5fr;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 0px;
+    color: #454545;
+    font-size: 18px;
+    font-weight: 600;
+   }
+
+   .cartItem-format-main p {
+    font-size: 14px;
+   }
+
+   .cartItems-promobox button {
+    width: 100px;
+    height: 50px;
+    
+    
+   }
+   
 }

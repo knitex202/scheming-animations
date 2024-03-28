@@ -5,10 +5,19 @@ import { ShopContext } from "../../Context/ShopContext";
 import "../CartItems/CartItems.css";
 
 export default function CartItems() {
-  const { all_products, cartItems, addToCart, removeFromCart, removeAllCart, getTotalCartAmount, getTotalTaxAmount, getSubtotal } = useContext(ShopContext);
+  const {
+    all_products,
+    cartItems,
+    addToCart,
+    removeFromCart,
+    removeAllCart,
+    getTotalCartAmount,
+    getTotalTaxAmount,
+    getSubtotal,
+  } = useContext(ShopContext);
   return (
     <div className="cartItems">
-      <div className="cartItem-format-main">
+      <div className="cartItem-format-main title-section">
         <p>Products</p>
         <p>Title</p>
         <p>Price</p>
@@ -26,15 +35,26 @@ export default function CartItems() {
                   <img src={e.image} alt="" className="cartIcon-product-icon" />
                 </div>
                 <p>{e.name}</p>
+
                 <p>${e.new_price}</p>
                 <div className="cartItems-button-container">
-                  <button className="cartItems-button-addRemove"
-                  onClick={()=>{addToCart(e.id)}}>+</button>
-                <button className="cartItems-quantity">
-                  {cartItems[e.id]}
-                </button>
-                <button className="cartItems-button-addRemove"
-                onClick={()=>{removeFromCart(e.id)}}>-</button>
+                  <button
+                    className="cartItems-button-addRemove"
+                    onClick={() => {
+                      addToCart(e.id);
+                    }}>
+                    +
+                  </button>
+                  <button className="cartItems-quantity">
+                    {cartItems[e.id]}
+                  </button>
+                  <button
+                    className="cartItems-button-addRemove"
+                    onClick={() => {
+                      removeFromCart(e.id);
+                    }}>
+                    -
+                  </button>
                 </div>
                 <p>${e.new_price * cartItems[e.id]}</p>
                 <Icon

@@ -1,18 +1,17 @@
-
 .Popular {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-}
-
-.popular-item {
+  }
+  
+  .popular-item {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 30px;
-}
-
-.Popular hr {
+  }
+  
+  .Popular hr {
     position: relative;
     top: -20px;
     margin-bottom: 50px;
@@ -20,5 +19,18 @@
     height: 6px;
     border: none;
     border-radius: 10px;
-    background: #e92a1e ;
-}
+    background: #e92a1e;
+  }
+  
+  @media (max-width: 1280px) {
+   .popular-item {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 1000px) {
+   .popular-item {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+  }

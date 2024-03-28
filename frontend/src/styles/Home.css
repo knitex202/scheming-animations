@@ -1,71 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Acme&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 .upper-main-content {
-display: flex;
-justify-content: space-around;
-height: 500px;
+  display: flex;
+  justify-content: space-around;
+  height: 500px;
 }
 
 .main-context-container {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
+  display: flex;
+  flex-direction: column;
+  width: 500px;
 }
 
 .main-context-container h1 {
-    font-size: 64px;
+  font-size: 64px;
 }
 
 .gradient-text {
-    background: linear-gradient(to right, #3a1ee9 1%, #11c1e8  ); /* Define your gradient colors */
-    -webkit-background-clip: text; /* Clip the background to the text */
-    -webkit-text-fill-color: transparent; /* Hide the text fill color */
+  background: linear-gradient(to right, #3a1ee9 1%, #11c1e8  ); 
+  -webkit-background-clip: text; 
+  -webkit-text-fill-color: transparent; 
 }
 
 .browse-now-button {
-    position: relative;
-    top: -40px;
-    width: 174px;
-    height: 47px;
-    font-family: "Poppins";
-    font-weight: 600;
-    font-size: 20px;
-    border-radius: 15px;
-    border: none;
-    color: #1a1b34;
-    background-color: #e92a1e;
-    cursor: pointer;
-    transition: .2s ease;
+  position: relative;
+  top: -40px;
+  width: 174px;
+  height: 47px;
+  font-family: "Poppins";
+  font-weight: 600;
+  font-size: 20px;
+  border-radius: 15px;
+  border: none;
+  color: #1a1b34;
+  background-color: #e92a1e;
+  cursor: pointer;
+  transition:.2s ease;
 }
 
 .browse-now-button:hover {
-background-color: #52100b;
-color: #e64439;
+  background-color: #52100b;
+  color: #e64439;
 }
 
 .banner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 179px;
-    background-color: #1a1b34;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 179px;
+  background-color: #1a1b34;
 }
 
 .banner h2 {
-    font-size: 32px;
-    color: white;
+  font-size: 32px;
+  color: white;
 }
 
 .socials-banner-content {
-    display: flex;
-    margin-top: 25px;
-    width: 100%;
-    justify-content: space-evenly;
+  display: flex;
+  margin-top: 25px;
+  width: 100%;
+  justify-content: space-evenly;
 }
 
 
-
 .content-container {
-    margin: 50px 100px;
+  margin: 50px 100px;
+}
+
+
+@media(max-width: 1280px) {
+ .Home-container {
+    width: 100%;
+  }
+  
+}
+
+@media (max-width: 768px) {
+ .main-context-container h1 {
+    font-size: 6vw; /* Adjust font size for smaller screens */
+  }
+  
+ .browse-now-button {
+    margin-top: 55px;
+    font-size: 4vw; /* Adjust font size for smaller screens */
+  }
+  
+ .banner h2 {
+    font-size: 6vw; /* Adjust font size for smaller screens */
+  }
+  
+ .content-container {
+    margin: 5% 5%; /* Adjust margins for smaller screens */
+  }
 }

@@ -65,5 +65,6 @@ align-items: center;
 }
 
 .Item button:hover {
-    background-color: #f75045;
+    background-color: white;
+    color: #6b63c4;
 }

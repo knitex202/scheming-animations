@@ -9,6 +9,7 @@ import Cart from "./Pages/Cart";
 import Shop from "./Pages/Shop";
 import LoginSignup from "./Pages/LoginSignup";
 import Contact from "./Pages/Contact";
+import Signup from "./Pages/Signup";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         </Route>
         <Route path="/cart" element={<Cart/>}/>
         <Route path="/login" element={<LoginSignup/>}/>
+        <Route path="/signup" element={<Signup/> } />
       </Routes>
       <Footer />
       </BrowserRouter>
