@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    box-shadow: rgba(0, 0, 0, 0.521) 0 0 5px .5px;
+}
+
+.navbar-left-container {
+    margin-left: 20px;
+    text-align: center;
+}
+
+.navbar-left-container h2 {
+    font-family: "Acme";
+    color: #1a1b34;
+}
+
+.navbar-left-container span {
+    color: #e92a1e;
+}
+
+.navbar-left-container h3{
+    position: relative;
+    top: -25px;
+    font-size: 14px;
+}

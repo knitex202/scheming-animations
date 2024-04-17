@@ -71,3 +71,25 @@
 .productdisplay-privacypolicy {
     width: 400px;
 }
+
+.rating-stars {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+  }
+  
+  .star-filled {
+    color: #e92a1e; /* Change to desired color for filled stars */
+    cursor: pointer;
+  }
+  
+  .star-empty {
+    color: lightgray; /* Change to desired color for empty stars */
+    cursor: pointer;
+  }
+  
+  .star-filled:hover,
+  .star-empty:hover {
+    color: #e92a1e; /* Change to desired color for hovered stars */
+  }
+  

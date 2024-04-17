@@ -2,6 +2,7 @@ import "../styles/Nav.css";
 import { Icon } from "@iconify/react";
 import shopBag from "@iconify-icons/icons8/shopping-cart";
 import user_icon from "@iconify-icons/icons8/gender-neutral-user";
+import logout_icon from "@iconify-icons/icons8/remove-user";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../Context/ShopContext";
@@ -72,12 +73,28 @@ export default function Nav() {
           </li> */}
         </ul>
 
-        <Link to="/login">
+        {localStorage.getItem("auth-token") ? (
           <Icon
-            icon={user_icon}
-            style={{ fontSize: "30px", margin: "0 30px" }}
+            icon={logout_icon}
+            style={{ fontSize: "30px", margin: "0 5px 0 30px", cursor: "pointer" }}
+            onClick={() => {
+              localStorage.removeItem("auth-token");
+              window.location.replace("/");
+            }}
           />
-        </Link>
+        ) : (
+          <Link to="/login">
+            <Icon
+              icon={user_icon}
+              style={{ fontSize: "30px", margin: "0 5px 0 30px" }}
+            />
+          </Link>
+        )}
+
+        {localStorage.getItem("auth-token") ? <p>Logout</p> : <p>Login</p> }
+
+        
+
         <div className="cart-container">
           <Link to="/cart">
             <Icon

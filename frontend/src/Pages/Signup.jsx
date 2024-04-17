@@ -9,6 +9,7 @@ export default function LoginSignup() {
         <div className="loginSignup-fields">
           <input type="text" placeholder="First Name" />
           <input type="text" placeholder="Last Name" />
+          <input type="text" placeholder="Username" />
           <input type="text" placeholder="Email Address" />
           <input type="password" placeholder="Password" />
         </div>

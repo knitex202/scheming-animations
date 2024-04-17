@@ -1,14 +1,24 @@
+import { useEffect, useState } from "react";
 import Item from "../Item/Item";
-import { all_products } from "../data";
 import "./Popular.css";
 
 export default function Popular() {
+  const [new_collection,setNew_collection] = useState([])
+
+  useEffect(()=>{
+    fetch("http://localhost:4000/newcollections")
+    .then((response)=> response.json())
+    .then((data)=>{
+      setNew_collection(data)
+    })
+  })
+
   return (
     <div className="Popular">
-      <h1>Popular Animations</h1>
+      <h1>Just Released</h1>
       <hr />
       <div className="popular-item">
-        {all_products.map((item) => {
+        {new_collection.map((item) => {
           return (
             <Item
               key={item.id}

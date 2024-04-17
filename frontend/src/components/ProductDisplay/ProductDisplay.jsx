@@ -7,6 +7,11 @@ import { ShopContext } from "../../Context/ShopContext";
 export default function ProductDisplay(props) {
   const { addToCart } = useContext(ShopContext);
   const { product } = props;
+  const [rating, setRating] = useState(0);
+
+  const handleStarClick = (starValue) => {
+    setRating(starValue);
+  };
   return (
     <div className="ProductDisplay">
       <div className="productdisplay-left">
@@ -24,6 +29,19 @@ export default function ProductDisplay(props) {
             from <span>{product?.new_price}</span>
           </h4>
         </div>
+        <div className="rating-stars">
+      {[1, 2, 3, 4, 5].map((starValue) => (
+        <span
+          key={starValue}
+          className={starValue <= rating ? "star-filled" : "star-empty"}
+          onClick={() => handleStarClick(starValue)}
+        >
+          &#9733;
+        </span>
+      ))}
+      <p>Current Rating: {rating}</p>
+    </div>
+  
       </div>
       <div className="productdisplay-right">
         <h1>{product?.name}</h1>
