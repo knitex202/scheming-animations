@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import removeIcon from "@iconify-icons/icons8/trash";
 import { ShopContext } from "../../Context/ShopContext";
@@ -11,10 +11,41 @@ export default function CartItems() {
     addToCart,
     removeFromCart,
     removeAllCart,
+    getPromoDiscount,
     getTotalCartAmount,
     getTotalTaxAmount,
     getSubtotal,
   } = useContext(ShopContext);
+
+  const [promoCode, setPromoCode] = useState("");
+  const [discount, setDiscount] = useState(0);
+
+  // Function to recalculate discount whenever cart items change
+  const updateDiscount = () => {
+    const promoDiscount = getPromoDiscount(promoCode);
+    setDiscount(promoDiscount);
+  };
+
+  useEffect(()=>{
+    updateDiscount();
+  },[cartItems])
+
+
+  const handleApplyPromo = () => {
+    const promoDiscount = getPromoDiscount(promoCode);
+    setDiscount(promoDiscount);
+  };
+
+  const handleRemoveFromCart = (productId) => {
+    removeAllCart(productId);
+    updateDiscount();
+  };
+
+  const handleTotal = ()=>{
+    const subtotal = getSubtotal() - discount
+    return parseFloat(subtotal.toFixed(2));
+  }
+
   return (
     <div className="cartItems">
       <div className="cartItem-format-main title-section">
@@ -42,6 +73,7 @@ export default function CartItems() {
                     className="cartItems-button-addRemove"
                     onClick={() => {
                       addToCart(e.id);
+                      updateDiscount();
                     }}>
                     +
                   </button>
@@ -52,17 +84,18 @@ export default function CartItems() {
                     className="cartItems-button-addRemove"
                     onClick={() => {
                       removeFromCart(e.id);
+                      updateDiscount();
                     }}>
                     -
                   </button>
                 </div>
-                <p>${e.new_price * cartItems[e.id]}</p>
+                <p>${(e.new_price * cartItems[e.id]).toFixed(2)}</p>
                 <Icon
                   className="cartItems-remove-icon"
                   icon={removeIcon}
                   style={{ fontSize: "30px", margin: "0 30px", color: "red" }}
                   onClick={() => {
-                    removeAllCart(e.id);
+                    handleRemoveFromCart(e.id);
                   }}
                 />
               </div>
@@ -84,16 +117,25 @@ export default function CartItems() {
             <p>${getTotalTaxAmount()}</p>
           </div>
           <div className="cartItems-total-item">
+            <p>Discount</p>
+            <p>${discount}</p>
+          </div>
+          <div className="cartItems-total-item">
             <h3>Total</h3>
-            <h3>${getSubtotal()}</h3>
+            <h3>${handleTotal()}</h3>
           </div>
           <button>Checkout</button>
         </div>
         <div className="cartItems-promocode">
           <h1>Promo Code</h1>
           <div className="cartItems-promobox">
-            <input type="text" placeholder="Enter Promo Code" />
-            <button>Apply</button>
+            <input
+              type="text"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value)}
+              placeholder="Enter Promo Code"
+            />
+            <button onClick={handleApplyPromo}>Apply</button>
           </div>
         </div>
       </div>

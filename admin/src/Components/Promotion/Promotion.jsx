@@ -1,55 +1,38 @@
 import React, { useState } from "react";
+import "../ListPromo/ListPromo.jsx"
 import "./Promotion.css";
+import ListPromo from "../ListPromo/ListPromo.jsx";
 
 function Promotion() {
+
   const [promotion, setPromotion] = useState({
     name: "",
     code: "",
-    discount: 0,
+    discount: "",
   });
 
   const changeHandler = (e) => {
     setPromotion({ ...promotion, [e.target.name]: e.target.value });
   };
 
-  const addPromotion = async (promotion) => {
-    console.log(promotion);
-    let responseData;
-    let promo = promotion;
-
-    let formData = new FormData();
-    formData.append("promotion");
-
-    await fetch("http://localhost:4000/upload", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-      },
-      body: formData,
-    })
-      .then((resp) => resp.json())
-      .then((data) => {
-        responseData = data;
-      });
-
-    if (responseData.success) {
-      promo.image = responseData.image_url;
-      console.log(promo);
-      await fetch("http://localhost:4000/addpromotion", {
+  const promo = async () => {
+    console.log("promotion function executed", promotion);
+    try {
+      const response = await fetch("http://localhost:4000/addpromotion", {
+        // This should be the endpoint for creating a promotion, not adding promotion
         method: "POST",
         headers: {
-          Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(promo),
-      })
-        .then((resp) => resp.json())
-        .then((data) => {
-          data.success ? alert("Promotion Added") : alert("Failed");
-        });
+        body: JSON.stringify(promotion),
+      });
+      const responseData = await response.json();
+      responseData.success?alert("Promotion Added"):alert("Failed to add Promotion");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("An error occurred while creating promotion");
     }
   };
-
   return (
     <div className="Promotion">
       <div className="promotion-itemfield">
@@ -63,7 +46,7 @@ function Promotion() {
         />
       </div>
       <div className="promotion-itemfield">
-        <p> Create Promotion Code</p>
+        <p>Create Promotion Code</p>
         <input
           value={promotion.code}
           onChange={changeHandler}
@@ -77,17 +60,15 @@ function Promotion() {
         <input
           value={promotion.discount}
           onChange={changeHandler}
-          type="text"
+          type="number"
           name="discount"
           placeholder="Type here"
         />
       </div>
-      <button
-        onClick={() => {
-          addPromotion();
-        }}>
-        Create
-      </button>
+      <button className="add-promo" onClick={promo}>Create</button>
+      <div className="promotionList">
+        <ListPromo/>
+      </div>
     </div>
   );
 }

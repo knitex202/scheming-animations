@@ -44,63 +44,108 @@ app.post("/upload", upload.single("product"), (req, res) => {
   });
 });
 
-//Schema for Creating Promotion Codes
 
-const PromotionCode = mongoose.model("PromotionCode",{
-    id:{
-        type: Number,
-        required: true,
-    },
-    name:{
-      type: String,
-      required: true,
-    },
-    code:{
-        type: String,
-        required: true,
-    },
-    discount:{
-        type: Number,
-        required: true,
-    },
-    date:{
-        type: Date,
-        default: Date.now,
-    },
-    available:{
-        type: Boolean,
-        default: true,
+
+// Schema for creating Promotion Codes
+
+const Promotion = mongoose.model("Promotion",{
+  id:{
+    type: Number,
+    required: true,
+  },
+  name:{
+    type: String,
+    required: true,
+  },
+  code:{
+    type: String,
+    required: true,
+  },
+  discount:{
+    type: Number,
+    required: true,
+  },
+  date:{
+    type: Date,
+    default: Date.now,
+  },
+  available:{
+    type: Boolean,
+    default: true,
+  }
+})
+
+
+// Creating API  for creating new Products
+
+app.post("/addpromotion", async (req, res) => {
+  try {
+    // Check if a promotion with the same name already exists
+    const existingName = await Promotion.findOne({ name: req.body.name });
+    if (existingName) {
+      return res.status(400).json({ error: "Promotion with this name already exists." });
     }
+
+    // Check if a promotion with the same code already exists
+    const existingCode = await Promotion.findOne({ code: req.body.code });
+    if (existingCode) {
+      return res.status(400).json({ error: "Promotion with this code already exists." });
+    }
+
+    let promotions = await Promotion.find({});
+    let id;
+
+    if (promotions.length > 0) {
+      let last_promotion_array = promotions.slice(-1)
+      let last_promotion = last_promotion_array[0]
+      id = last_promotion.id + 1;
+    } else {
+      id = 1;
+    }
+
+    const promotion = new Promotion({
+      id: id,
+      name: req.body.name,
+      code: req.body.code,
+      discount: req.body.discount,
+    });
+
+    await promotion.save();
+    res.json({
+      success: 1,
+      name: promotion.name,
+      code: promotion.code,
+      discount: promotion.discount,
+    });
+  } catch (error) {
+    console.error("Error adding promotion:", error);
+    res.status(500).json({ error: "Internal server error." });
+  }
 });
 
-//Creating API for creating promotion codes
+//Creating API for deleting Promotions
+app.post('/removepromo', async (req, res) => {
+  await Promotion.findOneAndDelete({id : req.body.id});
+  console.log("Removed");
+  res.json({
+    success: true,
+    name:req.body.name
+  })
+})
 
-app.post("/addpromotioncode", async (req,res)=> {
-  let promotioncode = await PromotionCode.find({});
-  let id;
-  if(promotioncode.length > 0){
-    let last_promotioncode_array = promotioncode.slice(-1)
-    let last_promotioncode = last_promotioncode_array[0]
-    id = last_promotioncode.id + 1;
-  }
-  else{
-    id = 1;
-  }
-  let promotionCode = new PromotionCode({
-    id: id,
-    code: req.body.code,
-    discount: req.body.discount,
-  });
-  console.log(promotionCode);
-  await promotionCode.save();
-  console.log("Saved");
-  res.send({
-    success: 1,
-    name: promotionCode.name,
-    code: promotionCode.code,
-    discount: promotionCode.discount,
-  });
-});
+//Creating API for getting all products
+app.get('/allpromos', async (req, res) => {
+  let promos = await Promotion.find({});
+  console.log("All Products Fetched");
+  res.send(promos);
+})
+
+//Creating API for getting Promotion code
+app.get('/promocode', async (req, res) => {
+  let promos = await Promotion.find({});
+  console.log("All Products Fetched");
+  res.send(promos);
+})
 
 //Schema for Creating Products
 

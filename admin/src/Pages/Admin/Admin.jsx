@@ -4,7 +4,7 @@ import Sidebar from "../../Components/Sidebar/Sidebar";
 import { Routes,Route } from "react-router-dom";
 import AddProduct from "../../Components/AddProduct/AddProduct";
 import ListProduct from "../../Components/ListProduct/ListProduct";
-import Promotion from "../../Promotion/Promotion";
+import Promotion from "../../Components/Promotion/Promotion";
 
 function Admin() {
   return <div className="admin">

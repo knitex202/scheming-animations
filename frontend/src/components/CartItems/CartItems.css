@@ -89,13 +89,12 @@
   display: flex;
   flex-direction: column;
   margin-right: 200px;
-  gap: 40px;
+  gap: 20px;
 }
 
 .cartItems-total-item {
   display: flex;
   justify-content: space-between;
-  padding: 15px 0px;
 }
 
 .cartItems-total button {

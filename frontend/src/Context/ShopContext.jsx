@@ -14,12 +14,19 @@ const getDefaultCart = () => {
 const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = React.useState(getDefaultCart());
   const [all_products, setAll_Products] = useState([]);
+  const [all_promos, setAll_Promos] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:4000/allproducts")
       .then((response) => response.json())
       .then((data) => setAll_Products(data));
   }, []);
+
+  useEffect(()=>{
+    fetch("http://localhost:4000/allpromos")
+    .then((response) => response.json())
+    .then((data) => setAll_Promos(data));
+  },[])
 
   const addToCart = (id) => {
     setCartItems((prev) => ({ ...prev, [id]: prev[id] + 1 }));
@@ -51,6 +58,17 @@ const ShopContextProvider = (props) => {
     return parseFloat(totalTaxAmount); // Convert back to float
   };
 
+  const getPromoDiscount = (promoCode) => {
+   const promo = all_promos.find((promo)=>promo.code === promoCode);
+    if (promo && promo.code === promoCode){
+      const discount = parseFloat(promo.discount)
+      const totalCartAmount = getTotalCartAmount();
+      return (totalCartAmount *(discount / 100)).toFixed(2); // Round to nearest hundredth
+    }else {
+      return 0;
+    }
+  }
+
   const getTotalCartAmount = () => {
     let totalAmount = 0;
     for (const item in cartItems) {
@@ -61,7 +79,7 @@ const ShopContextProvider = (props) => {
         totalAmount += itemInfo.new_price * cartItems[item];
       }
     }
-    return totalAmount;
+    return parseFloat(totalAmount.toFixed(2)); // Round to nearest hundredth
   };
 
   const getSubtotal = () => {
@@ -87,6 +105,7 @@ const ShopContextProvider = (props) => {
     addToCart,
     removeFromCart,
     removeAllCart,
+    getPromoDiscount,
     getTotalCartAmount,
     getTotalCartItems,
     getTotalTaxAmount,

@@ -11,7 +11,7 @@ export default function Popular() {
     .then((data)=>{
       setNew_collection(data)
     })
-  })
+  },[])
 
   return (
     <div className="Popular">
