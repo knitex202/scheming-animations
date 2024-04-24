@@ -22,15 +22,29 @@ const ShopContextProvider = (props) => {
       .then((data) => setAll_Products(data));
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetch("http://localhost:4000/allpromos")
-    .then((response) => response.json())
-    .then((data) => setAll_Promos(data));
-  },[])
+      .then((response) => response.json())
+      .then((data) => setAll_Promos(data));
+  }, []);
 
-  const addToCart = (id) => {
-    setCartItems((prev) => ({ ...prev, [id]: prev[id] + 1 }));
-    console.log(cartItems);
+  const addToCart = (itemId) => {
+    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
+    if (localStorage.getItem("auth-token")) {
+      fetch("http://localhost:4000/addtocart", {
+        method: "POST",
+        headers: {
+          Accept: "application/form-data",
+          "auth-token": `${localStorage.getItem("auth-token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemId: itemId }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    }
   };
 
   const removeFromCart = (id) => {
@@ -59,15 +73,15 @@ const ShopContextProvider = (props) => {
   };
 
   const getPromoDiscount = (promoCode) => {
-   const promo = all_promos.find((promo)=>promo.code === promoCode);
-    if (promo && promo.code === promoCode){
-      const discount = parseFloat(promo.discount)
+    const promo = all_promos.find((promo) => promo.code === promoCode);
+    if (promo && promo.code === promoCode) {
+      const discount = parseFloat(promo.discount);
       const totalCartAmount = getTotalCartAmount();
-      return (totalCartAmount *(discount / 100)).toFixed(2); // Round to nearest hundredth
-    }else {
+      return (totalCartAmount * (discount / 100)).toFixed(2); // Round to nearest hundredth
+    } else {
       return 0;
     }
-  }
+  };
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;

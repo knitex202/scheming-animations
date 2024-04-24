@@ -1,8 +1,16 @@
+import { useEffect, useState } from "react";
 import Item from "../Item/Item";
-import { all_products } from "../data";
 import "../styles/Shop.css";
 
 export default function Shop() {
+  const[all_products,setAll_products] = useState([])
+  useEffect(()=>{
+    fetch("http://localhost:4000/allproducts")
+    .then((response)=> response.json())
+    .then((data)=>{
+      setAll_products(data)
+    })
+  },[])
   return (
     <div className="Shop">
       <h1>Store</h1>

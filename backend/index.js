@@ -44,37 +44,34 @@ app.post("/upload", upload.single("product"), (req, res) => {
   });
 });
 
-
-
 // Schema for creating Promotion Codes
 
-const Promotion = mongoose.model("Promotion",{
-  id:{
+const Promotion = mongoose.model("Promotion", {
+  id: {
     type: Number,
     required: true,
   },
-  name:{
+  name: {
     type: String,
     required: true,
   },
-  code:{
+  code: {
     type: String,
     required: true,
   },
-  discount:{
+  discount: {
     type: Number,
     required: true,
   },
-  date:{
+  date: {
     type: Date,
     default: Date.now,
   },
-  available:{
+  available: {
     type: Boolean,
     default: true,
-  }
-})
-
+  },
+});
 
 // Creating API  for creating new Products
 
@@ -83,21 +80,25 @@ app.post("/addpromotion", async (req, res) => {
     // Check if a promotion with the same name already exists
     const existingName = await Promotion.findOne({ name: req.body.name });
     if (existingName) {
-      return res.status(400).json({ error: "Promotion with this name already exists." });
+      return res
+        .status(400)
+        .json({ error: "Promotion with this name already exists." });
     }
 
     // Check if a promotion with the same code already exists
     const existingCode = await Promotion.findOne({ code: req.body.code });
     if (existingCode) {
-      return res.status(400).json({ error: "Promotion with this code already exists." });
+      return res
+        .status(400)
+        .json({ error: "Promotion with this code already exists." });
     }
 
     let promotions = await Promotion.find({});
     let id;
 
     if (promotions.length > 0) {
-      let last_promotion_array = promotions.slice(-1)
-      let last_promotion = last_promotion_array[0]
+      let last_promotion_array = promotions.slice(-1);
+      let last_promotion = last_promotion_array[0];
       id = last_promotion.id + 1;
     } else {
       id = 1;
@@ -124,173 +125,174 @@ app.post("/addpromotion", async (req, res) => {
 });
 
 //Creating API for deleting Promotions
-app.post('/removepromo', async (req, res) => {
-  await Promotion.findOneAndDelete({id : req.body.id});
+app.post("/removepromo", async (req, res) => {
+  await Promotion.findOneAndDelete({ id: req.body.id });
   console.log("Removed");
   res.json({
     success: true,
-    name:req.body.name
-  })
-})
+    name: req.body.name,
+  });
+});
 
 //Creating API for getting all products
-app.get('/allpromos', async (req, res) => {
+app.get("/allpromos", async (req, res) => {
   let promos = await Promotion.find({});
   console.log("All Products Fetched");
   res.send(promos);
-})
+});
 
 //Creating API for getting Promotion code
-app.get('/promocode', async (req, res) => {
+app.get("/promocode", async (req, res) => {
   let promos = await Promotion.find({});
   console.log("All Products Fetched");
   res.send(promos);
-})
+});
 
 //Schema for Creating Products
 
-const Product = mongoose.model("Product",{
-    id:{
-        type: Number,
-        required: true,
-    },
-    name:{
-        type: String,
-        required: true,
-    },
-    image:{
-        type: String,
-        required: true,
-    },
-    category:{
-        type: String,
-        required: true,
-    },
-    description:{
-        type: String,
-        required: true,
-    },
+const Product = mongoose.model("Product", {
+  id: {
+    type: Number,
+    required: true,
+  },
+  name: {
+    type: String,
+    required: true,
+  },
+  image: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
 
-    rating:{
-        type: Number,
-        required: true,
-    },
+  rating: {
+    type: Number,
+    required: true,
+  },
 
-    new_price:{
-        type: Number,
-        required: true,
-    },
+  new_price: {
+    type: Number,
+    required: true,
+  },
 
-    old_price:{
-        type: Number,
-        required: true,
-    },
-    date:{
-        type: Date,
-        default: Date.now,
-    },
-    available:{
-        type: Boolean,
-        default: true,
-    }
+  old_price: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  available: {
+    type: Boolean,
+    default: true,
+  },
 });
 
-
 // Creating API  for creating new Products
-app.post("/addproduct", async (req,res)=> {
+app.post("/addproduct", async (req, res) => {
   let products = await Product.find({});
   let id;
-  if(products.length > 0){
-    let last_product_array = products.slice(-1)
-    let last_product = last_product_array[0]
+  if (products.length > 0) {
+    let last_product_array = products.slice(-1);
+    let last_product = last_product_array[0];
     id = last_product.id + 1;
   } else {
     id = 1;
   }
 
-    const product = new Product({
-        id: id,
-        name: req.body.name,
-        image: req.body.image,
-        category: req.body.category,
-        description: req.body.description,
-        rating: req.body.rating,
-        new_price: req.body.new_price,
-        old_price: req.body.old_price,
-        date: req.body.date,
-        available: req.body.available,
-    });
-    console.log(product);
-    await product.save();
-    console.log("Saved");
-    res.send({
-        success: 1,
-        name: req.body.name,
-    });
-})
+  const product = new Product({
+    id: id,
+    name: req.body.name,
+    image: req.body.image,
+    category: req.body.category,
+    description: req.body.description,
+    rating: req.body.rating,
+    new_price: req.body.new_price,
+    old_price: req.body.old_price,
+    date: req.body.date,
+    available: req.body.available,
+  });
+  console.log(product);
+  await product.save();
+  console.log("Saved");
+  res.send({
+    success: 1,
+    name: req.body.name,
+  });
+});
 
 //Creating API for deleting products
-app.post('/removeproduct', async (req, res) => {
-  await Product.findOneAndDelete({id : req.body.id});
+app.post("/removeproduct", async (req, res) => {
+  await Product.findOneAndDelete({ id: req.body.id });
   console.log("Removed");
   res.json({
     success: true,
-    name:req.body.name
-  })
-})
+    name: req.body.name,
+  });
+});
 
 //Creating API for getting all products
-app.get('/allproducts', async (req, res) => {
+app.get("/allproducts", async (req, res) => {
   let products = await Product.find({});
   console.log("All Products Fetched");
   res.send(products);
-})
+});
 
 //Creating API for user model
 
-const Users = mongoose.model('Users', {
-  firstname:{
+const Users = mongoose.model("Users", {
+  firstname: {
     type: String,
     required: true,
   },
-  lastname:{
+  lastname: {
     type: String,
     required: true,
   },
-  username:{
+  username: {
     type: String,
     required: true,
   },
-  email:{
+  email: {
     type: String,
-    unique:true,
+    unique: true,
     required: true,
   },
-  password:{
+  password: {
     type: String,
     required: true,
   },
-  cartData:{
+  cartData: {
     type: Object,
     required: true,
   },
-  date:{
+  date: {
     type: Date,
     default: Date.now,
-  }
-})
+  },
+});
 
 //Creating Endpoint for registering new users
 
-app.post('/signup', async (req, res) => {
-  let check = await Users.findOne({email:req.body.username})
-  if(check) {
-    return res.status(400).json({success:false, errors:"User already registered"});
+app.post("/signup", async (req, res) => {
+  let check = await Users.findOne({ email: req.body.username });
+  if (check) {
+    return res
+      .status(400)
+      .json({ success: false, errors: "User already registered" });
   }
   let cart = {};
-  for(let i = 0; i < 300; i++) {
-    cart[i]= 0;
-}
+  for (let i = 0; i < 300; i++) {
+    cart[i] = 0;
+  }
   const user = new Users({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -298,51 +300,77 @@ app.post('/signup', async (req, res) => {
     email: req.body.email,
     password: req.body.password,
     cartData: cart,
-  })
+  });
 
   await user.save();
-  
+
   const data = {
-    user:{
-      id: user.id
-    }
-  }
+    user: {
+      id: user.id,
+    },
+  };
 
-  const token = jwt.sign(data,"secret_ecom");
-  res.json({success:true,token})
-
-})
+  const token = jwt.sign(data, "secret_ecom");
+  res.json({ success: true, token });
+});
 
 // Creating Endpoint for User Login
-app.post("/login",async (req,res)=>{
-  let user = await Users.findOne({username:req.body.username});
-  if(user){
+app.post("/login", async (req, res) => {
+  let user = await Users.findOne({ username: req.body.username });
+  if (user) {
     const passCompare = req.body.password === user.password;
-    if(passCompare){
+    if (passCompare) {
       const data = {
-        user:{
-          id: user.id
-        }
-      }
-      const token = jwt.sign(data,"secret_ecom");
-      res.json({success:true,token})
+        user: {
+          id: user.id,
+        },
+      };
+      const token = jwt.sign(data, "secret_ecom");
+      res.json({ success: true, token });
+    } else {
+      res.json({ success: false, errors: "Invalid Password" });
     }
-    else{
-      res.json({success:false,errors:"Invalid Password"})
-    }
+  } else {
+    res.json({ success: false, errors: "Invalid User Name" });
   }
-  else{
-    res.json({success:false,errors:"Invalid User Name"})
-  }
-})
+});
 
 // Creating Endpoint for New Collection Data
-app.get("/newcollections",async (req, res)=> {
+app.get("/newcollections", async (req, res) => {
   let products = await Product.find({});
-  let newcollection = products.slice(1).slice(-8)
-  console.log("new collection fetched")
+  let newcollection = products.slice(1).slice(-8);
+  console.log("new collection fetched");
   res.send(newcollection);
-})
+});
+
+//Creating Middleware to fetch user
+const fetchUser = (req, res, next) => {
+  const token = req.header("auth-token");
+  if (!token) {
+    res.status(401).send({ errors: "Please authenticate using a valid token" });
+  } else {
+    try {
+      const data = jwt.verify(token, "secret_ecom");
+      req.user = data.user;
+      next();
+    } catch (error) {
+      res
+        .status(401)
+        .send({ errors: "Please authenticate using a valid token" });
+    }
+  }
+};
+
+//Creating Endpoint for adding products in cartData
+app.post("/addtocart", fetchUser, async (req, res) => {
+  let userData = await Users.findOne({ _id: req.user.id });
+  userData.cartData[req.body.itemId] += 1;
+  await Users.findOneAndUpdate(
+    { _id: req.user.id },
+    { cartData: userData.cartData }
+  );
+  res.send("Added");
+});
 
 app.listen(port, (error) => {
   if (!error) {
